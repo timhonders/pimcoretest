@@ -23,10 +23,19 @@ class KegaDevelopment_IndexController extends Pimcore_Controller_Action_Admin {
     }
     
     public function installAction () {
-    	
-    	$files_new = $this->getfiles();
+		
     	$db = Pimcore_Resource::get();
+    	$files_new = $this->getfiles();
+    	
     	foreach($files_new as $file){
+    		
+	    	$file = file_get_contents(PIMCORE_DOCUMENT_ROOT . '/website/var/system/'.$file);
+	    	$lines = explode("/*--NEXT--*/", $file);
+	    	
+	    	foreach ($lines as $line){
+	    		$db->query($line);
+	    	}
+    	
     		$sql = "INSERT INTO Kega_development_sqlfiles (file) VALUES ('".$file."');";
     		$db->query($sql);
     	}
