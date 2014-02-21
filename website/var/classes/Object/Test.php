@@ -5,6 +5,7 @@ class Object_Test extends Object_Concrete {
 public $o_classId = 1;
 public $o_className = "test";
 public $test;
+public $tim;
 
 
 /**
@@ -33,6 +34,25 @@ public function getTest () {
 */
 public function setTest ($test) {
 	$this->test = $test;
+	return $this;
+}
+
+/**
+* @return string
+*/
+public function getTim () {
+	$preValue = $this->preGetValue("tim"); 
+	if($preValue !== null && !Pimcore::inAdmin()) { return $preValue;}
+	$data = $this->tim;
+	 return $data;
+}
+
+/**
+* @param string $tim
+* @return void
+*/
+public function setTim ($tim) {
+	$this->tim = $tim;
 	return $this;
 }
 
