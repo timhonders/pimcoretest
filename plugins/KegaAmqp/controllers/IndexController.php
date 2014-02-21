@@ -6,26 +6,26 @@ class KegaAmqp_IndexController extends Pimcore_Controller_Action_Admin {
     public function indexAction () {
 
         // reachable via http://your.domain/plugin/KegaAmqp/index/index
-     	
-        $object = Object_Abstract::getById(8);
-        echo '<pre>';
-        print_r($object->getProperties());
-        
-        
-        $object = Object_Test::getById(8);
-        echo '<pre>';
-        print_r($object);
+//     	
+//        $object = Object_Abstract::getById(8);
+//        echo '<pre>';
+//        print_r($object->getProperties());
+//        
+//        
+//        $object = Object_Test::getById(8);
+//        echo '<pre>';
+//        print_r($object);
         
         $class = 'Object_Test';
         
 //        $xxx = new $class();
-
-        $xxx->setKey('test'.rand());
-        $xxx->setTest('test');
-        $xxx->setParent(Object_Folder::getByPath('/'));
-        $xxx->setPublished(true);
-		$xxx->save();
-
+//
+//        $xxx->setKey('test'.rand());
+//        $xxx->setTest('test');
+//        $xxx->setParent(Object_Folder::getByPath('/'));
+//        $xxx->setPublished(true);
+//		$xxx->save();
+//
 		
 
 		
