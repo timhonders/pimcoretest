@@ -6,6 +6,7 @@ public $o_classId = 2;
 public $o_className = "tim";
 public $test;
 public $ddd;
+public $qqq;
 
 
 /**
@@ -53,6 +54,25 @@ public function getDdd () {
 */
 public function setDdd ($ddd) {
 	$this->ddd = $ddd;
+	return $this;
+}
+
+/**
+* @return string
+*/
+public function getQqq () {
+	$preValue = $this->preGetValue("qqq"); 
+	if($preValue !== null && !Pimcore::inAdmin()) { return $preValue;}
+	$data = $this->qqq;
+	 return $data;
+}
+
+/**
+* @param string $qqq
+* @return void
+*/
+public function setQqq ($qqq) {
+	$this->qqq = $qqq;
 	return $this;
 }
 
