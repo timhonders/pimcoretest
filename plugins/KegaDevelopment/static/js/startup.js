@@ -12,37 +12,37 @@ pimcore.plugin.kegadevelopment = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params,broker){
         
         
-//        var user = pimcore.globalmanager.get("user");
-//        if(user.admin == true){
-//      
-//        	Ext.Ajax.request({
-//    		    url: '/plugin/KegaDevelopment/index/files',
-//    		    success: function(response, opts) {
-//					var obj = Ext.decode(response.responseText);
-//					if (obj.total > 0){
-//						Ext.MessageBox.confirm('Kega Development update', obj.total + ' sql updates detected, install updates', function (btn){
-//							if (btn == 'yes'){
-//							 	
-//								Ext.Ajax.request({
-//					    		    url: '/plugin/KegaDevelopment/index/install',
-//					    		    success: function(response, opts) {
-//				
-//					    		    },
-//					    		    failure: function(response, opts) {
-//					    			   console.log('server-side failure with status code ' + response.status);
-//					    		    }
-//					    		});
-//								
-//							}	
-//						});
-//					}
-//					console.dir(obj);
-//    		    },
-//    		    failure: function(response, opts) {
-//    			   console.log('server-side failure with status code ' + response.status);
-//    		    }
-//    		});
-//        }
+        var user = pimcore.globalmanager.get("user");
+        if(user.admin == true){
+      
+        	Ext.Ajax.request({
+    		    url: '/plugin/KegaDevelopment/index/files',
+    		    success: function(response, opts) {
+					var obj = Ext.decode(response.responseText);
+					if (obj.total > 0){
+						Ext.MessageBox.confirm('Kega Development update', obj.total + ' sql updates detected, install updates', function (btn){
+							if (btn == 'yes'){
+							 	
+								Ext.Ajax.request({
+					    		    url: '/plugin/KegaDevelopment/index/install',
+					    		    success: function(response, opts) {
+				
+					    		    },
+					    		    failure: function(response, opts) {
+					    			   console.log('server-side failure with status code ' + response.status);
+					    		    }
+					    		});
+								
+							}	
+						});
+					}
+					console.dir(obj);
+    		    },
+    		    failure: function(response, opts) {
+    			   console.log('server-side failure with status code ' + response.status);
+    		    }
+    		});
+        }
     }
     
 });
