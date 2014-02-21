@@ -1,0 +1,7 @@
+website/var/versions/*
+website/var/tmp/*
+website/var/search/*
+website/var/recyclebin/*
+website/var/log/*
+website/var/cache/*
+website/var/assets/*
