@@ -1,0 +1,2 @@
+
+KegaAmqp Plugin works!

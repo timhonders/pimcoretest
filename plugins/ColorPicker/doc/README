@@ -1,0 +1,172 @@
+/**
+ * This source file is subject to the new BSD license that is 
+ * available through the world-wide-web at this URL:
+ * http://www.pimcore.org/license
+ *
+ * @category   Pimcore
+ * @package    ColorPicker
+ * @copyright  Copyright (c) 2012 Amgate B.V. (http://www.amgate.com)
+ * @author     Leon Rodenburg <leon.rodenburg@amgate.com>
+ * @license    http://www.pimcore.org/license
+ */
+
+ColorPicker - a Pimcore plugin
+
+ColorPicker is a plugin for Pimcore that adds color picker functionality to
+Pimcore. It is based on the Ext.ColorPalette class of Ext JS and provides
+an editable and an object field which are capable of rendering a ColorPalette
+with a given set of colors (or the default, if no palette is chosen).
+
+This file contains an overview of the elements of the plugin. It exists of the
+following components:
+1 - Palette editor
+2 - Object field
+3 - Editable
+4 - LESS generation & integration
+5 - Settings
+
+Each of these elements will be discussed in a short chapter below.
+
+1 - Palette editor
+    After installing the plugin and reloading Pimcore, the 'Settings' menu will
+    contain a new menu item called 'Color Palettes' (the item title is translated
+    to other languages if necessary). If you click on this item you will see a panel
+    with the current set of palettes.
+
+    To add a palette, click 'Add'. The name of the palette should be a valid
+    identifier like the identifiers used for documents (so only letters, numbers
+    and underscores). The name should also be lowercase (and is transformed to
+    lowercase if it isn't). After adding the palette, it contains the default colors
+    black (#000000) and white (#FFFFFF).
+
+    To change the colors in the palette, double-click the colors. The colors list is
+    a comma-separated list of colors in hexadecimal format. All colors should be 
+    6-digit (so the short versions are not allowed). An example of a valid color
+    list is shown below:
+
+    FFFFFF,000000,ABABAB,CCCCCC,3D3D3D
+
+    All colors should be uppercase and are made uppercase if they are supplied in
+    lowercase. It is also allowed to prepend the value with a # or add spaces after
+    a comma. So, the following list is also correct:
+
+    #ACACAC, #554433,123456
+
+    The above will be parsed to form a correctly formatted list.
+
+    To provide more flexibility, it is also possible to nest lists. Nesting is done
+    using the name of the palette and is done in the following way:
+
+    @{palette_name}
+
+    These rules for placing these variables is the same as for colors. The order in
+    which colors and variables occur is respected, so if the first element is a
+    variable, the colors of the referenced palette will be added first. If the
+    included palette in its place contains other palettes, these will also be parsed
+    recursively.
+
+2 - Object field
+    To add a color palette as a field of an object, add a new data component and
+    look for 'Color' in the 'Select' group. You can set the palette that is used
+    in the field by specifying it under 'Palette' in the field's properties.
+
+    If you then create a new object of the class that contains the color field, you
+    will see a color picker with the chosen palette. If no palette was specified,
+    you will see the default colors that Ext JS provides
+    (see http://docs.sencha.com/ext-js/3-4/#!/api/Ext.ColorPalette)
+
+3 - Editable
+    The color editable can be used like every other editable. To add a color
+    editable to your document, put this in your view script source code:
+
+    <?php
+    echo $this->color('name');
+    ?>
+
+    You can also specify options by passing in an array as the second argument, like
+    so:
+
+    <?php
+    echo $this->color('name', array(
+        'palette' => 'mypalette'
+    ));
+    ?>
+
+    There are two important options that can be used with an editable:
+    palette (string) - Specifies the palette that will be shown
+    suppressOutput (bool) - true if the output (#color) should be suppressed in 
+                            the frontend. This options is useful if you use LESS 
+                            generation (see part 4).
+
+4 - LESS generation & integration
+    By default, ColorPicker is configured to generate LESS files. This means
+    that all the values of the color editables in a document are put in a
+    generated LESS file as variables. This enables you to import the generated
+    LESS file in your own LESS file so you can use the chosen colors in more
+    advanced CSS rules.
+
+    By default, the generated LESS file will be placed at
+    /website/var/plugins/ColorPicker/colorpicker.less
+
+    The name of the file is always colorpicker.less. You can change the path to
+    the generated LESS file in the plugin's settings (see part 5).
+
+    To better explain LESS generation, we'll explain it using an example.
+
+    In the palette editor, you added a palette called 'default'. It contains
+    several colors and has a reference to another palette called 'secondary',
+    which also has several colors.
+
+    In the 'default' view script of the DefaultController, you include the
+    following code to create a color editable:
+    <?php
+    echo $this->color('mycolor', array(
+        'palette' => 'default',
+        'suppressOutput' => true
+    ));
+    ?>
+
+    Then you edit a page that uses the 'default' action of the
+    DefaultController. The color picker will show up and will contain all the
+    colors you specify. You choose color #00FF00 (green) and save the document.
+
+    Then, in your own LESS file, you import the LESS file generated by
+    ColorPicker, by including the following code at the top:
+    
+    @import "/website/var/plugins/ColorPicker/colorpicker.less";
+
+    Then, somewhere in the body, you can use the value of the 'mycolor'
+    editable as a variable, like this:
+    
+    .green {
+        color: @mycolor;
+    }
+
+    You can see that you have to specify the name of the editable as the name
+    of the variable.
+
+    Now, when you visit the document you put the color editable in ColorPicker
+    will generate the LESS file containing the @myColor variable and set
+    #00FF00 as a value. Everything with the HTML class green will then have 
+    green text in it.
+
+    The power of this is that you can change the value with changing any CSS
+    or HTML. Just open the document in Pimcore, choose another color, save the
+    document and visit it in your browser. You will see that the color has
+    changed.
+
+5 - Settings
+    The plugin's settings can be reached using the 'Manage extension' Pimcore
+    menu item. Click on the button under 'Configure'. You will see a form that
+    contains all the current settings that you can freely edit. Every setting
+    also has a description to explain what it does or doesn't do.
+
+    The following settings are available:
+    Generate LESS - Enable this if you want a LESS file to be generated every
+                    request, false if you don't want ColorPicker to generate a
+                    LESS file.
+    Path          - The path where ColorPicker generates the colorpicker.less
+                    file. Make sure this path is readable and writable by the 
+                    script.
+
+                     
