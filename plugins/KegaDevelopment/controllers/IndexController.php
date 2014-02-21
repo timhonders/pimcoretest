@@ -33,7 +33,9 @@ class KegaDevelopment_IndexController extends Pimcore_Controller_Action_Admin {
 	    	$lines = explode("/*--NEXT--*/", $file);
 	    	
 	    	foreach ($lines as $line){
-	    		$db->query($line);
+	    		if ($line != ''){
+	    			$db->query($line);
+	    		}
 	    	}
     	
     		$sql = "INSERT INTO Kega_development_sqlfiles (file) VALUES ('".$file."');";
