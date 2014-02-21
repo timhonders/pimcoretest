@@ -6,3 +6,4 @@ website/var/log/*
 website/var/cache/*
 website/var/assets/*
 website/var/config/system.xml
+website/var/config/extensions.xml
