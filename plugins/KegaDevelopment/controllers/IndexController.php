@@ -26,15 +26,20 @@ class KegaDevelopment_IndexController extends Pimcore_Controller_Action_Admin {
 		
     	$db = Pimcore_Resource::get();
     	$files_new = $this->getfiles();
-    	
+
     	foreach($files_new as $file){
     		
-	    	$file = file_get_contents(PIMCORE_DOCUMENT_ROOT . '/website/var/system/'.$file);
-	    	$lines = explode("/*--NEXT--*/", $file);
+	    	$sql_file = file_get_contents(PIMCORE_DOCUMENT_ROOT . '/website/var/system/'.$file);
+	    	$lines = explode("/*--NEXT--*/", $sql_file);
 	    	
 	    	foreach ($lines as $line){
-	    		if ($line != ''){
-	    			$db->query($line);
+	    		if (strlen($line) > 10){
+	    			try {
+						$line = str_replace("'", '"', $line);
+	    				$db->query($line);
+					} catch (Exception $e) {
+					    echo  $e->getMessage(), "<br>";
+					}
 	    		}
 	    	}
     	

@@ -1,6 +1,4 @@
-UPDATE `classes` SET `id` = 1, `name` = 'test', `description` = '', `creationDate` = 1392969230, `modificationDate` = 1392991704, `userOwner` = 2, `userModification` = 2, `parentClass` = '', `allowInherit` = 0, `allowVariants` = 0, `showVariants` = 0, `icon` = '', `previewUrl` = '', `propertyVisibility` = "a:2:{s:4:\"grid\";a:5:{s:2:\"id\";b:1;s:4:\"path\";b:1;s:9:\"published\";b:1;s:16:\"modificationDate\";b:1;s:12:\"creationDate\";b:1;}s:6:\"search\";a:5:{s:2:\"id\";b:1;s:4:\"path\";b:1;s:9:\"published\";b:1;s:16:\"modificationDate\";b:1;s:12:\"creationDate\";b:1;}}" WHERE (id = 1);
 
-/*--NEXT--*/
 
 CREATE TABLE IF NOT EXISTS `object_query_1` (
 			  `oo_id` int(11) NOT NULL default '0',
@@ -9,18 +7,30 @@ CREATE TABLE IF NOT EXISTS `object_query_1` (
 			  PRIMARY KEY  (`oo_id`)
 			) DEFAULT CHARSET=utf8;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_query_1` ALTER COLUMN `oo_className` SET DEFAULT 'test';
 
+;
+
 /*--NEXT--*/
+
+
 
 CREATE TABLE IF NOT EXISTS `object_store_1` (
 			  `oo_id` int(11) NOT NULL default '0',
 			  PRIMARY KEY  (`oo_id`)
 			) DEFAULT CHARSET=utf8;
 
+;
+
 /*--NEXT--*/
+
+
 
 CREATE TABLE IF NOT EXISTS `object_relations_1` (
           `src_id` int(11) NOT NULL DEFAULT '0',
@@ -42,33 +52,63 @@ CREATE TABLE IF NOT EXISTS `object_relations_1` (
           KEY `ownername` (`ownername`)
         ) DEFAULT CHARSET=utf8;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_query_1` CHANGE COLUMN `test` `test` varchar(255) NULL;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_store_1` CHANGE COLUMN `test` `test` varchar(255) NULL;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_query_1` DROP INDEX `p_index_test`;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_store_1` DROP INDEX `p_index_test`;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_query_1` DROP COLUMN `xxx`;
 
+;
+
 /*--NEXT--*/
+
+
 
 ALTER TABLE `object_store_1` DROP COLUMN `xxx`;
 
+;
+
 /*--NEXT--*/
 
+
+
 CREATE OR REPLACE VIEW `object_1` AS SELECT * FROM `object_query_1` JOIN `objects` ON `objects`.`o_id` = `object_query_1`.`oo_id`;
+
+;
 
 /*--NEXT--*/
 
