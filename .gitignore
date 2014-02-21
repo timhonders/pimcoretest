@@ -5,3 +5,4 @@ website/var/recyclebin/*
 website/var/log/*
 website/var/cache/*
 website/var/assets/*
+website/var/config/system.xml
