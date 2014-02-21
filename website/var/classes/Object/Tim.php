@@ -7,6 +7,7 @@ public $o_className = "tim";
 public $test;
 public $ddd;
 public $qqq;
+public $michiel;
 
 
 /**
@@ -73,6 +74,25 @@ public function getQqq () {
 */
 public function setQqq ($qqq) {
 	$this->qqq = $qqq;
+	return $this;
+}
+
+/**
+* @return string
+*/
+public function getMichiel () {
+	$preValue = $this->preGetValue("michiel"); 
+	if($preValue !== null && !Pimcore::inAdmin()) { return $preValue;}
+	$data = $this->michiel;
+	 return $data;
+}
+
+/**
+* @param string $michiel
+* @return void
+*/
+public function setMichiel ($michiel) {
+	$this->michiel = $michiel;
 	return $this;
 }
 
